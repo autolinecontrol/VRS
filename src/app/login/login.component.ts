@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { error } from 'util';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class LoginComponent implements OnInit {
   formularioLogin: FormGroup;
-  constructor(private creadorFormulario: FormBuilder,private auth: AngularFireAuth) { }
+  datosCorrectos = true;
+  textoError = '';
+  constructor(private creadorFormulario: FormBuilder, private auth: AngularFireAuth) { }
 
   ngOnInit() {
     this.formularioLogin = this.creadorFormulario.group({
@@ -19,11 +22,21 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
   }
-  ingresar(){
-    this.auth.signInWithEmailAndPassword(this.formularioLogin.value.email,this.formularioLogin.value.password)
-    .then((usuario)=> {
-      console.log(usuario);
-    })
+  ingresar() {
+    if (this.formularioLogin.valid) {
+      this.datosCorrectos = true;
+      this.auth.signInWithEmailAndPassword(this.formularioLogin.value.email, this.formularioLogin.value.password)
+      .then((usuario) => {
+        console.log(usuario);
+      }).catch((error)=> {
+        this.datosCorrectos = false;
+        this.textoError = error.message;
+      });
+    } else {
+      this.datosCorrectos = false;
+      this.textoError = 'Por favor revisa que los datos esten correctos';
+    }
+
   }
 
 }
