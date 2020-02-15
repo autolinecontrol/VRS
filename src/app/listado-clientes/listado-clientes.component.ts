@@ -12,9 +12,20 @@ export class ListadoClientesComponent implements OnInit {
    constructor(private db: AngularFirestore) { }
 
   ngOnInit() {
-    this.db.collection('Usuarios').valueChanges().subscribe((resultado)=>{
-      this.clientes=resultado
-     })
+    // this.db.collection('Usuarios').valueChanges().subscribe((resultado)=>{
+    //   this.clientes=resultado
+    //  })
+    this.clientes.lenght=0
+    this.db.collection('Usuarios').get().subscribe((resultado)=>{
+      resultado.docs.forEach((item)=>{
+
+        let cliente = item.data();
+        cliente.id=item.id;
+        cliente.ref=item.ref;
+        this.clientes.push(cliente);
+
+      })
+    })
   }
 
 }
