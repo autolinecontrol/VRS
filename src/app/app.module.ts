@@ -14,6 +14,8 @@ import { EncabezadoComponent } from './encabezado/encabezado.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ListadoClientesComponent } from './listado-clientes/listado-clientes.component';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AgregarClientesComponent } from './agregar-clientes/agregar-clientes.component';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AppComponent,
     LoginComponent,
     EncabezadoComponent,
-    ListadoClientesComponent
+    ListadoClientesComponent,
+    AgregarClientesComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFirestoreModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
-    FormsModule
+    FormsModule,
+    ProgressbarModule.forRoot()
   ],
   providers: [
     AngularFireAuth
