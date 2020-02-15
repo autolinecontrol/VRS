@@ -19,7 +19,7 @@
           <div class="dropdown-menu"  *dropdownMenu aria-labelledby="navbarDropdown">
             <a class="dropdown-item"  href="#">Agregar </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Ver Clientes</a>
+            <a class="dropdown-item" routerLink="/listado-clientes">Ver Clientes</a>
           </div>
         </li>
         <li class="nav-item dropdown" dropdown>
@@ -47,9 +47,7 @@
             </div>
           </li>
       </ul>
-      <!-- <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form> -->
+      
     </div>
+    <button  class="btn btn-danger" (click)="logout()" >Salir</button>
   </nav>

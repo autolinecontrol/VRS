@@ -12,13 +12,15 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { EncabezadoComponent } from './encabezado/encabezado.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ListadoClientesComponent } from './listado-clientes/listado-clientes.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    EncabezadoComponent
+    EncabezadoComponent,
+    ListadoClientesComponent
   ],
   imports: [
     BrowserModule,

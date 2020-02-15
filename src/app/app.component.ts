@@ -21,10 +21,5 @@ export class AppComponent {
 
   });
   }
-  login() {
-    this.auth.signInWithEmailAndPassword('dlcabezas2@gmail.com', 'firebase2020' );
-  }
-  logout() {
-    this.auth.signOut();
-  }
+  
 }
