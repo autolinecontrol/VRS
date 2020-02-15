@@ -13,6 +13,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { EncabezadoComponent } from './encabezado/encabezado.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ListadoClientesComponent } from './listado-clientes/listado-clientes.component';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ListadoClientesComponent } from './listado-clientes/listado-clientes.co
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
     FormsModule

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth,  User } from 'firebase/app';
+import { AngularFirestore } from '@angular/fire/firestore';
+import 'firebase/firestore';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,6 @@ export class AppComponent {
   cargando: boolean =  true;
   constructor(private auth: AngularFireAuth) {
   this.auth.user.subscribe((usuario) =>   {
-
   
       this.cargando  = false;
       this.usuario = usuario;
