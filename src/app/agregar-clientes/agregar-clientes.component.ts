@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CompileShallowModuleMetadata } from '@angular/compiler';
+import { AngularFireStorage } from '@angular/fire/storage';
+
 
 @Component({
   selector: 'app-agregar-clientes',
@@ -9,7 +10,7 @@ import { CompileShallowModuleMetadata } from '@angular/compiler';
 })
 export class AgregarClientesComponent implements OnInit {
   formularioClientes: FormGroup
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,private storage: AngularFireStorage) { }
 
   ngOnInit() {
     this.formularioClientes=this.fb.group({
@@ -27,5 +28,11 @@ export class AgregarClientesComponent implements OnInit {
   }
   agregar(){
     console.log(this.formularioClientes.value)
+  }
+  subirImagen(evento)
+  {
+    console.log(evento)
+    let archivo = evento.target.files[0]
+
   }
 }
