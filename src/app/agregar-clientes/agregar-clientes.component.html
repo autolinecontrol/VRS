@@ -1,53 +1,81 @@
 <div class="container mt-5">
-    <form>
+    <form [formGroup]="formularioClientes">
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="">Nombre</label>
-                    <input type="text" class="form-control"  placeholder="Agregue el Nombre">
-                  </div>
+                    <input type="text" class="form-control" formControlName="Nombre" placeholder="Agregue el Nombre">
+                    <div *ngIf="formularioClientes.controls['Nombre'].invalid && formularioClientes.controls['Nombre'].dirty" class="alert alert-danger" role="alert">
+                        <span *ngIf="formularioClientes.controls['Nombre'].errors.required"> Nombre es requerido</span>
+                    </div>
+                </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="">Apellido</label>
-                    <input type="text" class="form-control"  placeholder="Agregue el Apellido">
+                    <input type="text" class="form-control" formControlName="Apellido" placeholder="Agregue el Apellido">
+                    <div *ngIf="formularioClientes.controls['Apellido'].invalid && formularioClientes.controls['Apellido'].dirty" class="alert alert-danger" role="alert">
+                        <span *ngIf="formularioClientes.controls['Apellido'].errors.required"> Apellido es requerido</span>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="">Correo</label>
-                    <input type="text" class="form-control"  placeholder="Agregue el Correo">
+                    <input type="text" class="form-control"  formControlName="Email" placeholder="Agregue el Correo">
+                    <div *ngIf="formularioClientes.controls['Email'].invalid && formularioClientes.controls['Email'].dirty" class="alert alert-danger" role="alert">
+                        <span *ngIf="formularioClientes.controls['Email'].errors.required"> Correo es requerido</span>
+                        <span *ngIf="formularioClientes.controls['Email'].errors.email"> Correo no valido</span>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="">Facultad</label>
-                    <input type="text" class="form-control"  placeholder="Agregue la Facultad">
+                    <input type="text" class="form-control"  formControlName="Facultad" placeholder="Agregue la Facultad">
+                    <div *ngIf="formularioClientes.controls['Facultad'].invalid && formularioClientes.controls['Facultad'].dirty" class="alert alert-danger" role="alert">
+                        <span *ngIf="formularioClientes.controls['Facultad'].errors.required"> Facultad es requerido</span>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="">Cedula</label>
-                    <input type="text" class="form-control"  placeholder="Agregue la Cedula">
+                    <input type="text" class="form-control" formControlName="Iden" placeholder="Agregue la Cedula">
+                    <div *ngIf="formularioClientes.controls['Iden'].invalid && formularioClientes.controls['Iden'].dirty" class="alert alert-danger" role="alert">
+                        <span *ngIf="formularioClientes.controls['Iden'].errors.required"> Cedula es requerido</span>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="">Rol</label>
-                    <input type="text" class="form-control"  placeholder="Agregue el Rol">
+                    <input type="text" class="form-control" formControlName="Role" placeholder="Agregue el Rol">
+                    <div *ngIf="formularioClientes.controls['Role'].invalid && formularioClientes.controls['Role'].dirty" class="alert alert-danger" role="alert">
+                        <span *ngIf="formularioClientes.controls['Role'].errors.required"> Cedula es requerido</span>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="">Imagen</label>
-                    <input type="file" class="form-control-file"  placeholder="Agregue su Imagen">
+                    <input type="file" class="form-control-file" formControlName="img" placeholder="Agregue su Imagen">
+                    <div *ngIf="formularioClientes.controls['img'].invalid && formularioClientes.controls['img'].dirty" class="alert alert-danger" role="alert">
+                        <span *ngIf="formularioClientes.controls['img'].errors.required"> Imagen es requerido</span>
+                    </div>
+                </div>
+            </div>
+            <div >
+                <div>
+                    
+                    <input type="hidden" formControlName="Carrera"value="">
                 </div>
             </div>
             <div class="col-sm-12">
                 <progressbar [value]="22" type="danger" [striped]="true">22%</progressbar>
             </div>
             <br><br>
-            <button class="btn btn-primary">Agregar</button>
+            <button class="btn btn-primary"[disabled]="formularioClientes.invalid" (click)="agregar()">Agregar</button>
         </div>
     </form>
 </div>
