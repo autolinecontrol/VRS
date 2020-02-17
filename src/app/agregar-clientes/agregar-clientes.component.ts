@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage';
+import 'firebase/storage';
 
 
 @Component({
@@ -31,8 +32,13 @@ export class AgregarClientesComponent implements OnInit {
   }
   subirImagen(evento)
   {
-    console.log(evento)
     let archivo = evento.target.files[0]
+    let ruta ="Usuarios/imagen1.png";
+    const referencia= this.storage.ref(ruta)
+    const tarea = referencia.put(archivo)
+    tarea.then((objeto)=>{
+      console.log('imagen subida')
+    })
 
   }
 }
