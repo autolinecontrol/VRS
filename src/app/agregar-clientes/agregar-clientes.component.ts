@@ -4,6 +4,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import 'firebase/storage';
 
 
+
 @Component({
   selector: 'app-agregar-clientes',
   templateUrl: './agregar-clientes.component.html',
@@ -12,7 +13,7 @@ import 'firebase/storage';
 export class AgregarClientesComponent implements OnInit {
   formularioClientes: FormGroup
   constructor(private fb: FormBuilder,private storage: AngularFireStorage) { }
-
+  porcentajeSubida:number =0
   ngOnInit() {
     this.formularioClientes=this.fb.group({
       Nombre: ['',Validators.required],
@@ -37,7 +38,12 @@ export class AgregarClientesComponent implements OnInit {
     const referencia= this.storage.ref(ruta)
     const tarea = referencia.put(archivo)
     tarea.then((objeto)=>{
-      console.log('imagen subida')
+      referencia.getDownloadURL().subscribe((uri)=>{
+        console.log(uri)
+      })
+    })
+    tarea.percentageChanges().subscribe((porcentaje)=>{
+      this.porcentajeSubida=parseInt(porcentaje.toString())
     })
 
   }
