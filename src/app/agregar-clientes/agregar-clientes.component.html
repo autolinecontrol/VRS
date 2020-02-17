@@ -1,3 +1,4 @@
+<body ng-app="">
 <div class="container mt-5">
     <form [formGroup]="formularioClientes">
         <div class="row">
@@ -13,7 +14,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="">Apellido</label>
-                    <input type="text" class="form-control" formControlName="Apellido" placeholder="Agregue el Apellido">
+                    <input type="text" class="form-control"  formControlName="Apellido" placeholder="Agregue el Apellido">
                     <div *ngIf="formularioClientes.controls['Apellido'].invalid && formularioClientes.controls['Apellido'].dirty" class="alert alert-danger" role="alert">
                         <span *ngIf="formularioClientes.controls['Apellido'].errors.required"> Apellido es requerido</span>
                     </div>
@@ -22,7 +23,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="">Correo</label>
-                    <input type="text" class="form-control"  formControlName="Email" placeholder="Agregue el Correo">
+                    <input type="email" class="form-control" ng-model="all" formControlName="Email" placeholder="Agregue el Correo">
                     <div *ngIf="formularioClientes.controls['Email'].invalid && formularioClientes.controls['Email'].dirty" class="alert alert-danger" role="alert">
                         <span *ngIf="formularioClientes.controls['Email'].errors.required"> Correo es requerido</span>
                         <span *ngIf="formularioClientes.controls['Email'].errors.email"> Correo no valido</span>
@@ -56,15 +57,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group">
+             <div class="col-sm-12">
+                <div class="form-group" *ngIf="!formularioClientes.controls['Email'].invalid && formularioClientes.controls['Email'].dirty">
                     <label for="">Imagen</label>
-                    <input type="file" (change)="subirImagen($event)" class="form-control-file" formControlName="img" placeholder="Agregue su Imagen">
-                    <div *ngIf="formularioClientes.controls['img'].invalid && formularioClientes.controls['img'].dirty" class="alert alert-danger" role="alert">
-                        <span *ngIf="formularioClientes.controls['img'].errors.required"> Imagen es requerido</span>
-                    </div>
+                    <input type="file" (change)="subirImagen($event)"  class="form-control-file" placeholder="Agregue su Imagen">
+      
+                    
                 </div>
-            </div>
+            </div> 
             <div >
                 <div>
                     
@@ -79,3 +79,4 @@
         </div>
     </form>
 </div>
+</body>
