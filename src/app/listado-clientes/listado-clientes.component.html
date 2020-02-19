@@ -1,24 +1,22 @@
 <div class="container mt-5">
-    <h4>Listado de Clientes</h4>
-    <form>
-        <div class="form-group">
-          
-          <input type="text" class="form-control" placeholder="Busque un Cliente">
-        </div>
-    </form>
-        
-    <div class="row">
-        <div class="col-sm-3" *ngFor="let cliente of clientes">
-            <div class="card" >
-                 <img  class="card-img-top imgClient" [src]="arreglo[cliente.id]" alt="...">
-                <div class="card-body">
-                    <p>{{cliente.id}}</p>
-                  <h5 class="card-title">{{cliente.Nombre}}  {{cliente.Apellido}}</h5>
-                  <a href="#" class="card-link">Editar</a>
-                  <a href="#" class="card-link text-danger">Desactivar</a>
-                </div>
-              </div>
-        </div>
-
+  <h4>Listado de Clientes</h4>
+  <form>
+    <div class="form-group">
+      <input type="text" (input)="buscarUsuario($event.target.value)"class="form-control" placeholder="Busque un Cliente">
     </div>
+  </form>
+  <div *ngFor="let usuario of usuarios">
+         <div class="col-sm-3" *ngIf="usuario.visible" >
+          <div class="card float-left">
+            <img  class="card-img-top imgClient" [src]="arreglo[usuario.id]" alt="...">
+            <div class="card-body">
+              <p>{{usuario.id}}</p>
+              <h5 class="card-title">{{usuario.Nombre}}  {{usuario.Apellido}}</h5>
+              <a href="#" class="card-link">Editar</a>
+              <a href="#" class="card-link text-danger">Desactivar</a>
+           </div> 
+        
+      </div>
+    </div>
+  </div>
 </div>

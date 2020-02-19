@@ -17,6 +17,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AgregarClientesComponent } from './agregar-clientes/agregar-clientes.component';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { RdComponent } from './rd/rd.component';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     LoginComponent,
     EncabezadoComponent,
     ListadoClientesComponent,
-    AgregarClientesComponent
+    AgregarClientesComponent,
+    RdComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     AngularFireStorageModule
   ],
   providers: [
-    AngularFireAuth
+    AngularFireAuth,
+    AngularFireDatabase
   ],
   bootstrap: [AppComponent]
 })

@@ -34,7 +34,7 @@ export class AgregarClientesComponent implements OnInit {
     })
   }
   agregar(){
-    console.log(this.formularioClientes.value)
+    
     let correo: string=this.formularioClientes.value.Email
     let nombre: string=this.formularioClientes.value.Nombre
     let apellido: string=this.formularioClientes.value.Apellido
@@ -57,11 +57,7 @@ export class AgregarClientesComponent implements OnInit {
   .catch(function(error) {
       console.error("Error writing document: ", error);
   });
-    // // let upload=JSON.parse(subir);
-    // // console.log(upload)  
-    //      this.db.collection('Usuarios').add(subir).then((termino)=>{
-    //      console.log('Usuario Registrado')
-    //  })
+  
     
   }
   subirImagen(evento)
