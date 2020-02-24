@@ -7,20 +7,19 @@ import Swal from 'sweetalert2'
 export class MensajesService {
 
   constructor() { }
-  mensajeError(){
+  mensajeError(titulo: string,texto:string){
     Swal.fire(
       {
-        title: 'Error!',
-        text: 'Do you want to continue',
-        icon: 'error',
-        confirmButtonText: 'Cool'
+        title: titulo,
+        text: texto,
+        icon: 'error'
       }
     )
   }
-  mensajeAgregado(){
+  mensajecorrecto(titulo: string,texto:string){
     Swal.fire({
-      title: 'Agregado Correctamente',
-      text: 'Se agrego correctamente',
+      title: titulo,
+      text: texto,
       icon: 'success'
     })
   }

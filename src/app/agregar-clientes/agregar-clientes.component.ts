@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage';
 import 'firebase/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { MensajesService } from '../services/mensajes.service';
 
 
 
@@ -13,7 +14,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class AgregarClientesComponent implements OnInit {
   formularioClientes: FormGroup
-  constructor(private fb: FormBuilder,private storage: AngularFireStorage,private db: AngularFirestore) { }
+  constructor(private fb: FormBuilder,private storage: AngularFireStorage,private db: AngularFirestore,
+    private msj:MensajesService) { }
   porcentajeSubida:number =0
   arreglo: any = new Array<any>();
   correo: string
@@ -34,16 +36,14 @@ export class AgregarClientesComponent implements OnInit {
     })
   }
   agregar(){
-    
     let correo: string=this.formularioClientes.value.Email
     let nombre: string=this.formularioClientes.value.Nombre
     let apellido: string=this.formularioClientes.value.Apellido
     let facultad: string=this.formularioClientes.value.Facultad
     let iden: string=this.formularioClientes.value.Iden
     let role: string=this.formularioClientes.value.Role
-    let carrera: string="deshabilitado"
-    
-    this.db.collection("Usuarios").doc(correo).set({
+    let carrera: string="Deshabilitado"
+     this.db.collection("Usuarios").doc(correo).set({
       Nombre: this.formularioClientes.value.Nombre,
       Apellido: apellido,
       Email: correo,
@@ -52,11 +52,11 @@ export class AgregarClientesComponent implements OnInit {
       Role: role,
       Carrera: carrera
   })
-  .then(function() {
-      console.log("Document successfully written!");
-  })
-  .catch(function(error) {
-      console.error("Error writing document: ", error);
+  .then((resultado)=>{
+    this.msj.mensajecorrecto('Agregar','se Agrego Correctamente')
+  }) 
+  .catch((error)=>{
+    this.msj.mensajeError('Error','Sucedio un Error')
   });
   
     

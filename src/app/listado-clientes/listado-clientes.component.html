@@ -11,9 +11,10 @@
         <img  class="card-img-top imgClient" [src]="arreglo[usuario.id]" alt="...">
         <div class="card-body">
          <p>{{usuario.id}}</p>
+         <p>Estado : {{usuario.Carrera}}</p>
          <h5 class="card-title">{{usuario.Nombre}}  {{usuario.Apellido}}</h5>
-         <a href="#"*ngIf="usuario.Carrera=='deshabilitado'" class="btn btn-success">Activar</a>
-         <a href="#"*ngIf="usuario.Carrera!='deshabilitado'" class="btn btn-danger">Desactivar</a>
+         <a (click)="Activar(usuario)"*ngIf="usuario.Carrera=='Deshabilitado'" class="btn btn-primary">Activar</a>
+         <a (click)="Desactivar(usuario)"*ngIf="usuario.Carrera!='Deshabilitado'" class="btn btn-danger">Desactivar</a>
         </div> 
       </div>
     </div>

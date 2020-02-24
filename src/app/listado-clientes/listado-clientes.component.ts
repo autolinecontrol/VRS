@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import 'firebase/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Usuarios } from '../models/clientes';
+import { MensajesService } from '../services/mensajes.service';
 
 @Component({
   selector: 'app-listado-clientes',
@@ -13,7 +14,7 @@ export class ListadoClientesComponent implements OnInit {
   clientes: any = new Array<any>();
   usuarios: Usuarios[] = new Array<Usuarios>()
   arreglo: any = new Array<any>();
-   constructor(private db: AngularFirestore,private storage: AngularFireStorage) { }
+   constructor(private db: AngularFirestore,private storage: AngularFireStorage,private msj : MensajesService) { }
 
   ngOnInit() {
     this.db.collection('Usuarios').get().subscribe((resultado)=>{
@@ -30,20 +31,6 @@ export class ListadoClientesComponent implements OnInit {
       })
     })
     }
-    // this.clientes.lenght=0
-    // this.db.collection('Usuarios').get().subscribe((resultado)=>{
-    //   resultado.docs.forEach((item)=>{
-    //     let cliente = item.data();
-    //     cliente.id=item.id;
-    //     cliente.ref=item.ref;
-    //     const ref = this.storage.ref('Usuarios/'+cliente.id);
-    //     ref.getDownloadURL().subscribe((uri)=>{
-    //        this.arreglo[cliente.id]=uri
-    //      })
-    //     this.clientes.push(cliente);
-
-    //   })
-    // })
     buscarUsuario(nombre: string){
       this.usuarios.forEach((usuario)=>{
         if(usuario.Nombre.toLowerCase().includes(nombre.toLowerCase())){
@@ -52,6 +39,30 @@ export class ListadoClientesComponent implements OnInit {
         else{
           usuario.visible=false
         }
+      })
+    }
+    Activar(objeto: any)
+    {
+      let correo=objeto.Email
+      let posicion=this.usuarios.indexOf(objeto)
+      this.db.collection("Usuarios").doc(correo).update({
+      Carrera:'Habilitado'
+      }).then((resultado)=>{
+        this.msj.mensajecorrecto('Activar','se Activo Correctamente')
+        objeto.Carrera='Habilitado'
+        this.usuarios[posicion] = objeto;
+      })
+    }
+    Desactivar(objeto: any)
+    {
+      let correo=objeto.Email
+      let posicion=this.usuarios.indexOf(objeto)
+      this.db.collection("Usuarios").doc(correo).update({
+      Carrera:'Deshabilitado'
+      }).then((resultado)=>{
+        this.msj.mensajecorrecto('Desactivar','Se desactivo Correctamente')
+        objeto.Carrera='Deshabilitado'
+        this.usuarios[posicion] = objeto;
       })
     }
   }

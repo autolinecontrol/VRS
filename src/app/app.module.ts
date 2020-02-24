@@ -19,6 +19,7 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { RdComponent } from './rd/rd.component';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
+import { MensajesService } from './services/mensajes.service';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
   ],
   providers: [
     AngularFireAuth,
-    AngularFireDatabase
+    AngularFireDatabase,
+    MensajesService
   ],
   bootstrap: [AppComponent]
 })
