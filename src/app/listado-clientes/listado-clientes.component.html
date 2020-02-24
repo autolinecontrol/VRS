@@ -5,17 +5,16 @@
       <input type="text" (input)="buscarUsuario($event.target.value)"class="form-control" placeholder="Busque un Cliente">
     </div>
   </form>
-  <div *ngFor="let usuario of usuarios">
-         <div class="col-sm-3" *ngIf="usuario.visible" >
-          <div class="card float-left">
-            <img  class="card-img-top imgClient" [src]="arreglo[usuario.id]" alt="...">
-            <div class="card-body">
-              <p>{{usuario.id}}</p>
-              <h5 class="card-title">{{usuario.Nombre}}  {{usuario.Apellido}}</h5>
-              <a href="#" class="card-link">Editar</a>
-              <a href="#" class="card-link text-danger">Desactivar</a>
-           </div> 
-        
+  <div class="col-sm-3"*ngFor="let usuario of usuarios"  >
+    <div class="card" style="width: 14rem;" *ngIf="usuario.visible">
+      <div class="card float-left">
+        <img  class="card-img-top imgClient" [src]="arreglo[usuario.id]" alt="...">
+        <div class="card-body">
+         <p>{{usuario.id}}</p>
+         <h5 class="card-title">{{usuario.Nombre}}  {{usuario.Apellido}}</h5>
+         <a href="#"*ngIf="usuario.Carrera=='deshabilitado'" class="btn btn-success">Activar</a>
+         <a href="#"*ngIf="usuario.Carrera!='deshabilitado'" class="btn btn-danger">Desactivar</a>
+        </div> 
       </div>
     </div>
   </div>

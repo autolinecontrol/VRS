@@ -41,7 +41,8 @@ export class AgregarClientesComponent implements OnInit {
     let facultad: string=this.formularioClientes.value.Facultad
     let iden: string=this.formularioClientes.value.Iden
     let role: string=this.formularioClientes.value.Role
-    let carrera: string=this.formularioClientes.value.Carrera
+    let carrera: string="deshabilitado"
+    
     this.db.collection("Usuarios").doc(correo).set({
       Nombre: this.formularioClientes.value.Nombre,
       Apellido: apellido,
