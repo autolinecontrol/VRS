@@ -72,7 +72,7 @@ export class AgregarClientesComponent implements OnInit {
       const tarea = referencia.put(archivo)
       tarea.then((objeto)=>{
         referencia.getDownloadURL().subscribe((uri)=>{
-          console.log(uri)
+          //console.log(uri)
         })
       })
       tarea.percentageChanges().subscribe((porcentaje)=>{

@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Usuarios } from '../models/clientes';
 import { MensajesService } from '../services/mensajes.service';
+import { error } from 'util';
 
 @Component({
   selector: 'app-listado-clientes',
@@ -24,9 +25,12 @@ export class ListadoClientesComponent implements OnInit {
         usuario.id= item.id;
         usuario.visible=false;
         const ref = this.storage.ref('Usuarios/'+usuario.id);
-        ref.getDownloadURL().subscribe((uri)=>{
+        const algo=ref.getDownloadURL().subscribe((uri)=>{
         this.arreglo[usuario.id]=uri
+              },error=>{
+              console.log(error)
               })
+            
         this.usuarios.push(usuario)
       })
     })
