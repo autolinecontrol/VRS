@@ -12,14 +12,22 @@ import 'firebase/storage';
   styleUrls: ['./rd.component.scss']
 })
 export class RdComponent implements OnInit {
+  objeto:any
   ngOnInit() {
   }
   
   itemRef: AngularFireObject<any>;
   item: Observable<any>;
+  
+  algo={
+    email:"",
+    name:"",
+    uid:""
+  }
   starCountRef:any
   constructor(db: AngularFireDatabase,private auth: AngularFireAuth,private subir: AngularFireStorage) {
     this.itemRef = db.object('Usuarios');
+
     let postId="dlcabezas2@gmail.com"
     // this.items = db.list('items').valueChanges();
     // this.starCountRef=starCountRef
@@ -29,7 +37,12 @@ export class RdComponent implements OnInit {
     // this.starCoiuntRef.set({ name: newName });
   }
   update(newSize: string) {
-    this.itemRef.update({ size: newSize });
+    let algo="David"
+    this.algo.email="dlcabezas2@gmail.com"
+    this.algo.name="David"
+    this.algo.uid="1013672652"
+    
+    this.itemRef.update({ 1013672652 : this.algo  });
   }
   delete() {
     this.itemRef.remove();
