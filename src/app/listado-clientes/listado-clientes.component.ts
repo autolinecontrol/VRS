@@ -27,15 +27,19 @@ export class ListadoClientesComponent implements OnInit {
         const ref = this.storage.ref('Usuarios/'+usuario.id);
         const algo=ref.getDownloadURL().subscribe((uri)=>{
         this.arreglo[usuario.id]=uri
-              },error=>{
-              console.log(error)
-              })
+      console.log(uri)})
+
+              // },error=>{
+              // console.log(error)
+              // console.log("Deberia Botar un error")
+              // })
             
         this.usuarios.push(usuario)
       })
     })
     }
     buscarUsuario(nombre: string){
+      console.log(this.usuarios)
       this.usuarios.forEach((usuario)=>{
         if(usuario.Nombre.toLowerCase().includes(nombre.toLowerCase())){
           usuario.visible=true;

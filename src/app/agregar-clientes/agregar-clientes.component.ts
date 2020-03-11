@@ -43,6 +43,12 @@ export class AgregarClientesComponent implements OnInit {
     let iden: string=this.formularioClientes.value.Iden
     let role: string=this.formularioClientes.value.Role
     let carrera: string="Deshabilitado"
+    this.db.collection("Clientes").doc(iden).set({
+      Email: correo,
+      Nid: iden
+    }).then((resultado)=>{
+      // console.log("Insertado en Clientes")
+    });
      this.db.collection("Usuarios").doc(correo).set({
       Nombre: this.formularioClientes.value.Nombre,
       Apellido: apellido,
