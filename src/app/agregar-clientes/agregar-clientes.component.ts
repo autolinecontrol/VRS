@@ -70,18 +70,18 @@ export class AgregarClientesComponent implements OnInit {
       Perfil: role,
       clave:Pin,
       email:correo,
+      foto:foto,
       name: nombre,
       uid:iden
     });
     //Agregar a Usuarios Firestore
      this.db.collection("Usuarios").doc(iden).set({
-      Nombre: nombre,
       Apellido: apellido,
       Email: correo,
       Facultad: facultad,
       Iden: iden,
+      Nombre: nombre,
       Role: role,
-      Carrera: carrera,
       foto: foto,
   })
   .then((resultado)=>{
