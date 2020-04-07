@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListadoClientesComponent } from './listado-clientes/listado-clientes.component';
 import { AgregarClientesComponent } from './agregar-clientes/agregar-clientes.component';
 import { RdComponent } from './rd/rd.component';
+import { PendientesComponent } from './pendientes/pendientes.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,9 @@ const routes: Routes = [
   },
   {
     path: 'rd', component:RdComponent
+  },
+  {
+    path: 'pendientes', component:PendientesComponent
   }
 ];
 

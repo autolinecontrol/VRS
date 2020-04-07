@@ -20,6 +20,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { RdComponent } from './rd/rd.component';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { MensajesService } from './services/mensajes.service';
+import { PendientesComponent } from './pendientes/pendientes.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { MensajesService } from './services/mensajes.service';
     EncabezadoComponent,
     ListadoClientesComponent,
     AgregarClientesComponent,
-    RdComponent
+    RdComponent,
+    PendientesComponent
   ],
   imports: [
     BrowserModule,

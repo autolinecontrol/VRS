@@ -54,7 +54,7 @@ export class AgregarClientesComponent implements OnInit {
     let iden: string=this.formularioClientes.value.Iden
     let role: string=this.formularioClientes.value.Role
     let carrera: string=""
-    let foto: string="no"
+    let foto: string="xa"
     let pin : string="1234"
     //Agregar a Clientes
     this.db.collection("Clientes").doc(iden).set({
@@ -75,7 +75,7 @@ export class AgregarClientesComponent implements OnInit {
       uid:iden
     });
     //Agregar a Usuarios Firestore
-     this.db.collection("Usuarios").doc(iden).set({
+     this.db.collection("Usuarios").doc(correo).set({
       Apellido: apellido,
       Email: correo,
       Facultad: facultad,
