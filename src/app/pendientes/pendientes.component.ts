@@ -10,6 +10,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class PendientesComponent implements OnInit {
   usuarios: Usuarios[] = new Array<Usuarios>()
+  usuariosmostrar: Usuarios[] = new Array<Usuarios>()
   arreglo: any = new Array<any>();
   constructor(public db: AngularFirestore,public storage: AngularFireStorage) { }
   
@@ -22,15 +23,16 @@ export class PendientesComponent implements OnInit {
       usuario.id= item.id;
       const ref = this.storage.ref('Usuarios/'+usuario.id);
       const algo=ref.getDownloadURL().subscribe((uri)=>{
-      this.arreglo[usuario.id]=uri
+      usuario.foto=uri
       console.log(uri)})
       console.log(usuario)
       this.usuarios.push(usuario)
     })
     })
     }
-    ver(){
-      
+    ver(usuario: Usuarios){
+    console.log(usuario)
+    this.usuariosmostrar.push(usuario)
     }
 }
 

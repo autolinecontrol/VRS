@@ -7,6 +7,7 @@ export class Usuarios{
     Iden:string;
     Role:string;
     visible:boolean;
+    foto:string;
     constructor(){
 
     }
