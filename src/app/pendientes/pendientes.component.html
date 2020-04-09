@@ -22,8 +22,8 @@
                  <p>{{mostrar.id}}</p>
                  <p>{{mostrar.Facultad}}</p>
                  <h5 class="card-title">{{mostrar.Nombre}}</h5>
-                 <a class="btn btn-primary">Activar</a>
-                 <a  class="btn btn-danger">Desactivar</a>
+                 <a class="btn btn-primary" (click)="activar(mostrar)">Activar</a>
+                 <a  class="btn btn-danger" (click)="desactivar(mostrar)">Desactivar</a>
                 </div> 
               </div>
             </div>

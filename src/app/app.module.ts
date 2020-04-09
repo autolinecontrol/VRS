@@ -21,6 +21,7 @@ import { RdComponent } from './rd/rd.component';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { MensajesService } from './services/mensajes.service';
 import { PendientesComponent } from './pendientes/pendientes.component';
+import { EnviarcorreosService } from './services/enviarcorreos.service';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { PendientesComponent } from './pendientes/pendientes.component';
   providers: [
     AngularFireAuth,
     AngularFireDatabase,
-    MensajesService
+    MensajesService,
+    EnviarcorreosService
   ],
   bootstrap: [AppComponent]
 })
