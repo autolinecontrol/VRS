@@ -23,6 +23,13 @@ export class MensajesService {
       icon: 'success'
     })
   }
+  mensajeerrror(titulo: string,texto:string){
+    Swal.fire({
+      title: titulo,
+      text: texto,
+      icon: 'error'
+    })
+  }
   mensajeEditar(){
     Swal.fire({
       title: 'Estas seguro?',

@@ -5,6 +5,7 @@ export class Usuarios{
     Perfil:string;
     email:string;
     foto:string;
+    validar:string;
     name:string;
     uid:string;    
     db:string;

@@ -1,0 +1,30 @@
+<div class="container mt-5">
+    <h4>Buscar Usuarios en Android</h4>
+    <form [formGroup]="formularioClientes">
+      <div class="form-group">
+        <input type="number" class="form-control" formControlName="Identificacion" placeholder="Busque un usuario por identificacion">
+        <br>  
+        <div *ngIf="formularioClientes.controls['Identificacion'].invalid && formularioClientes.controls['Identificacion'].dirty" class="alert alert-danger" role="alert">
+            <span *ngIf="formularioClientes.controls['Identificacion'].errors.required"> Identificacion es requerido</span>
+          </div>
+          <button class="btn btn-primary"[disabled]="formularioClientes.invalid" (click)="buscar()">Buscar</button>
+      </div>
+    </form>
+    <div class="row">
+    <div class="col-sm-3"*ngFor="let usuario of usuarios"  >
+      <div class="card" style="width: 14rem;">
+        <div class="card float-left">
+          <img  class="card-img-top imgClient" [src]="usuario.foto" alt="...">
+          <div class="card-body">
+           <p>{{usuario.uid}}</p>
+           <p>{{usuario.Facultad}}</p>
+           <h5 class="card-title">{{usuario.name}}</h5>
+           <a (click)="Activar(usuario)"*ngIf="usuario.validar=='no'" class="btn btn-primary">Activar</a>
+           <a (click)="Desactivar(usuario)"*ngIf="usuario.validar!='no'" class="btn btn-danger">Desactivar</a>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  

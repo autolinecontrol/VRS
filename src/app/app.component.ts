@@ -10,7 +10,7 @@ import 'firebase/firestore';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'VRS';
+  title = 'Sistema de Carnetizacion';
   usuario: User;
   cargando: boolean =  true;
   constructor(private auth: AngularFireAuth) {

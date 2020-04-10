@@ -22,6 +22,7 @@ import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { MensajesService } from './services/mensajes.service';
 import { PendientesComponent } from './pendientes/pendientes.component';
 import { EnviarcorreosService } from './services/enviarcorreos.service';
+import { BuscarfirestoreComponent } from './buscarfirestore/buscarfirestore.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { EnviarcorreosService } from './services/enviarcorreos.service';
     ListadoClientesComponent,
     AgregarClientesComponent,
     RdComponent,
-    PendientesComponent
+    PendientesComponent,
+    BuscarfirestoreComponent
   ],
   imports: [
     BrowserModule,

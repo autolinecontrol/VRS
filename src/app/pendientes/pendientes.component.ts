@@ -57,7 +57,7 @@ export class PendientesComponent implements OnInit {
     this.usuariosmostrar.push(usuario)
     }
     activar(usuario: Usuarios){
-      console.log(usuario)
+      //console.log(usuario)
     if(usuario.db='db'){
       let posicion=this.usuarios.indexOf(usuario)
       const itemRef = this.rd.object('users/'+usuario.uid);

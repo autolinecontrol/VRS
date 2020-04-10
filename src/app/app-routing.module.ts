@@ -4,6 +4,7 @@ import { ListadoClientesComponent } from './listado-clientes/listado-clientes.co
 import { AgregarClientesComponent } from './agregar-clientes/agregar-clientes.component';
 import { RdComponent } from './rd/rd.component';
 import { PendientesComponent } from './pendientes/pendientes.component';
+import { BuscarfirestoreComponent } from './buscarfirestore/buscarfirestore.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,9 @@ const routes: Routes = [
   },
   {
     path: 'pendientes', component:PendientesComponent
+  },
+  {
+    path: 'firestore', component:BuscarfirestoreComponent
   }
 ];
 
