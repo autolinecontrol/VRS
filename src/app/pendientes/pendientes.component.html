@@ -10,7 +10,7 @@
             <h4>Lista de Pendientes</h4> 
             <ul>
               <li *ngFor="let usuario of usuarios">
-                <a (click)="ver(usuario)">{{usuario.Nombre}}</a>
+                <a (click)="ver(usuario)">{{usuario.name}}</a>
               </li>
             </ul>
         </div>
@@ -19,9 +19,9 @@
               <div class="card float-left">
                 <img  class="card-img-top imgClient" [src]="mostrar.foto" alt="...">
                 <div class="card-body">
-                 <p>{{mostrar.id}}</p>
+                 <p>{{mostrar.uid}}</p>
                  <p>{{mostrar.Facultad}}</p>
-                 <h5 class="card-title">{{mostrar.Nombre}}</h5>
+                 <h5 class="card-title">{{mostrar.name}}</h5>
                  <a class="btn btn-primary" (click)="activar(mostrar)">Activar</a>
                  <a  class="btn btn-danger" (click)="desactivar(mostrar)">Desactivar</a>
                 </div> 

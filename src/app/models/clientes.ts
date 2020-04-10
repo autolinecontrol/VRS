@@ -1,13 +1,13 @@
 export class Usuarios{
-    id: string;
-    Nombre:string;
     Apellido:string;
     Carrera:string="";
-    Email:string;
-    Iden:string;
-    Role:string;
-    visible:boolean;
+    Facultad:string;
+    Perfil:string;
+    email:string;
     foto:string;
+    name:string;
+    uid:string;    
+    db:string;
     constructor(){
 
     }
