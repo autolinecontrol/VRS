@@ -5,6 +5,7 @@ import { Usuarios } from '../models/clientes';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { MensajesService } from '../services/mensajes.service';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-pendientes',
   templateUrl: './pendientes.component.html',
@@ -15,7 +16,7 @@ export class PendientesComponent implements OnInit {
   usuariosmostrar: Usuarios[] = new Array<Usuarios>()
   usuariord:Usuarios
   arreglo: any = new Array<any>();
-  constructor(public db: AngularFirestore,public storage: AngularFireStorage,public msj : MensajesService,public rd: AngularFireDatabase) { }
+  constructor(public http: HttpClient,public db: AngularFirestore,public storage: AngularFireStorage,public msj : MensajesService,public rd: AngularFireDatabase) { }
   
   ngOnInit() {}
   actualizar(){
@@ -59,10 +60,24 @@ export class PendientesComponent implements OnInit {
     activar(usuario: Usuarios){
       //console.log(usuario)
     if(usuario.db='db'){
+      let acceder
+      let ejemplo=
+      {
+        email:"",
+        name:"",
+        uid:""
+      }
+      ejemplo.name=usuario.name
+      ejemplo.uid=usuario.uid
+      ejemplo.email=usuario.email
+      acceder=JSON.stringify(ejemplo)
       let posicion=this.usuarios.indexOf(usuario)
       const itemRef = this.rd.object('users/'+usuario.uid);
       itemRef.update({ foto: 'si' }).then((resultado)=>{
-        this.msj.mensajecorrecto('Activar','se Activo Correctamente')
+        this.http.post<any>('http://localhost/ejemplo/enviarcorreos1.php',acceder).toPromise().then((data)=>{
+        console.log (data)
+        })
+        this.msj.mensajecorrecto('Activar','se Activo Correctamente y se ha enviado un correo')
         this.usuariosmostrar.length=0
         this.usuarios.splice(posicion,1)
       });

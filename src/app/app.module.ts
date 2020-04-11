@@ -23,6 +23,7 @@ import { MensajesService } from './services/mensajes.service';
 import { PendientesComponent } from './pendientes/pendientes.component';
 import { EnviarcorreosService } from './services/enviarcorreos.service';
 import { BuscarfirestoreComponent } from './buscarfirestore/buscarfirestore.component';
+import { HttpClientModule } from '@angular/common/http'; 
 
 
 @NgModule({
@@ -34,9 +35,11 @@ import { BuscarfirestoreComponent } from './buscarfirestore/buscarfirestore.comp
     AgregarClientesComponent,
     RdComponent,
     PendientesComponent,
-    BuscarfirestoreComponent
+    BuscarfirestoreComponent,
+    
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     AccordionModule.forRoot(),
@@ -48,13 +51,15 @@ import { BuscarfirestoreComponent } from './buscarfirestore/buscarfirestore.comp
     NgxSpinnerModule,
     FormsModule,
     ProgressbarModule.forRoot(),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    
   ],
   providers: [
     AngularFireAuth,
     AngularFireDatabase,
     MensajesService,
-    EnviarcorreosService
+    EnviarcorreosService,
+
   ],
   bootstrap: [AppComponent]
 })

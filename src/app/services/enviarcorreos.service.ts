@@ -8,6 +8,7 @@ export class EnviarcorreosService {
 
   constructor(private http: HttpClient) { }
   sendMessage(body) {
-    return this.http.post('http://localhost:3000/formulario', body);
+    return this.http.post('http://localhost/ejemplo/enviarcorreos1.php', body);
+    
     }
 }

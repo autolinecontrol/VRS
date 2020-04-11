@@ -5,6 +5,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import 'firebase/database';
 import { AngularFireStorage } from '@angular/fire/storage';
 import 'firebase/storage';
+import { EnviarcorreosService } from '../services/enviarcorreos.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-rd',
@@ -13,6 +15,7 @@ import 'firebase/storage';
 })
 export class RdComponent implements OnInit {
   objeto:any
+  postId:any
   ngOnInit() {
   }
   
@@ -25,7 +28,7 @@ export class RdComponent implements OnInit {
     uid:""
   }
   starCountRef:any
-  constructor(db: AngularFireDatabase,private auth: AngularFireAuth,private subir: AngularFireStorage) {
+  constructor(db: AngularFireDatabase,private auth: AngularFireAuth,private subir: AngularFireStorage,public  ec:EnviarcorreosService,public http: HttpClient) {
     this.itemRef = db.object('Usuarios');
 
     let postId="dlcabezas2@gmail.com"
@@ -55,6 +58,25 @@ export class RdComponent implements OnInit {
     };
     const referencia= this.subir.ref(ruta)
     const tarea = referencia.putString(archivo,'base64',metadata)
+  }
+  // Realizar Pruebas para enviar correos por post
+  correo(){
+    let acceder
+    let ejemplo=
+    {
+      email:"",
+      name:"",
+      uid:""
+    }
+    ejemplo.name="David"
+    ejemplo.uid="1013672652"
+    ejemplo.email="dlcabezas2@gmail.com"
+    acceder=JSON.stringify(ejemplo)
+    console.log(acceder)
+    this.http.post<any>('http://localhost/ejemplo/enviarcorreos1.php',acceder).toPromise().then((data)=>{
+      console.log (data)
+    })
+    
   }
   prueba(){
     let email="dlcabezas@gmail.com";
