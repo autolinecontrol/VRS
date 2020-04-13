@@ -4,14 +4,14 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label for="">Nombre</label>
+                    <label for="">Nombres y Apellidos</label>
                     <input type="text" class="form-control" formControlName="Nombre" placeholder="Agregue el Nombre">
                     <div *ngIf="formularioClientes.controls['Nombre'].invalid && formularioClientes.controls['Nombre'].dirty" class="alert alert-danger" role="alert">
                         <span *ngIf="formularioClientes.controls['Nombre'].errors.required"> Nombre es requerido</span>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <!-- <div class="col-sm-4">
                 <div class="form-group">
                     <label for="">Apellido</label>
                     <input type="text" class="form-control"  formControlName="Apellido" placeholder="Agregue el Apellido">
@@ -19,7 +19,7 @@
                         <span *ngIf="formularioClientes.controls['Apellido'].errors.required"> Apellido es requerido</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="">Correo</label>
@@ -165,14 +165,14 @@
                    </select>
                 </div> 
             </div>
-             <div class="col-sm-12">
+             <!-- <div class="col-sm-12">
                 <div class="form-group" *ngIf="!formularioClientes.controls['Email'].invalid && formularioClientes.controls['Email'].dirty">
                     <label for="">Imagen</label>
                     <input type="file" (change)="subirImagen($event)"  class="form-control-file" placeholder="Agregue su Imagen">
       
                     
                 </div>
-            </div> 
+            </div>  -->
             <div >
                 <div>
                     

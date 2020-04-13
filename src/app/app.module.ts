@@ -45,7 +45,7 @@ import { HttpClientModule } from '@angular/common/http';
     AccordionModule.forRoot(),
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment["firebase"]),
     AngularFirestoreModule,
     ReactiveFormsModule,
     NgxSpinnerModule,

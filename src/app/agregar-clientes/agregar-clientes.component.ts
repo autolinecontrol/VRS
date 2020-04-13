@@ -6,6 +6,7 @@ import 'firebase/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MensajesService } from '../services/mensajes.service';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -18,7 +19,7 @@ export class AgregarClientesComponent implements OnInit {
   formularioClientes: FormGroup
   itemRef: AngularFireObject<any>;
   item: Observable<any>;
-  constructor(private fb: FormBuilder,private storage: AngularFireStorage,private db: AngularFirestore,
+  constructor(public http: HttpClient,private fb: FormBuilder,private storage: AngularFireStorage,private db: AngularFirestore,
     private msj:MensajesService,private rd:AngularFireDatabase) {
       this.itemRef = rd.object('Usuarios');
       this.item = this.itemRef.valueChanges();
@@ -31,7 +32,6 @@ export class AgregarClientesComponent implements OnInit {
     
     this.formularioClientes=this.fb.group({
       Nombre: ['',Validators.required],
-      Apellido: ['',Validators.required],
       Email: ['',Validators.compose([
         Validators.required,Validators.email
       ])],
@@ -49,12 +49,12 @@ export class AgregarClientesComponent implements OnInit {
     let Pin=Math.round(Math.random()*(1000-9999)+(9999));
     let correo: string=this.formularioClientes.value.Email
     let nombre: string=this.formularioClientes.value.Nombre
-    let apellido: string=this.formularioClientes.value.Apellido
+    let apellido: string=''
     let facultad: string=this.formularioClientes.value.Facultad
     let iden: string=this.formularioClientes.value.Iden
     let role: string=this.formularioClientes.value.Role
     let carrera: string=""
-    let foto: string="xa"
+    let foto: string="no"
     let pin : string="1234"
     //Agregar a Clientes
     this.db.collection("Clientes").doc(iden).set({
@@ -65,7 +65,7 @@ export class AgregarClientesComponent implements OnInit {
       // console.log("Insertado en Clientes")
     });
     //Agregar a Realtime Database
-    this.rd.object('/Usuarios/' + iden).update({
+    this.rd.object('/users/' + iden).set({
       Facultad:facultad,
       Perfil: role,
       clave:Pin,
@@ -77,21 +77,38 @@ export class AgregarClientesComponent implements OnInit {
     //Agregar a Usuarios Firestore
      this.db.collection("Usuarios").doc(correo).set({
       Apellido: apellido,
-      Email: correo,
+      Carrera: "",
       Facultad: facultad,
-      Iden: iden,
-      Nombre: nombre,
-      Role: role,
+      Perfil: role,
+      email: correo,
       foto: foto,
+      name: nombre,
+      uid: iden
   })
   .then((resultado)=>{
+    let acceder
+    let ejemplo=
+    {
+      email:"",
+      name:"",
+      uid:"",
+      pin:123
+    }
+    ejemplo.name=nombre
+    ejemplo.uid=iden
+    ejemplo.email=correo
+    ejemplo.pin=Pin
+    acceder=JSON.stringify(ejemplo)
+    console.log(acceder)
+    this.http.post<any>('http://localhost/correos/bienvenida.php',acceder).toPromise().then((data)=>{
+      console.log (data)
+    })
     this.msj.mensajecorrecto('Agregar','se Agrego Correctamente')
-  }) 
-  .catch((error)=>{
-    this.msj.mensajeError('Error','Sucedio un Error')
-  });
+    }) 
+    .catch((error)=>{
+    this.msj.mensajeError('Error','Ocurrio un Error')
+    });
   
-    
   }
   subirImagen(evento)
   {
