@@ -9,6 +9,8 @@ export class Usuarios{
     name:string;
     uid:string;    
     db:string;
+    pin:string;
+    clave:string
     constructor(){
 
     }

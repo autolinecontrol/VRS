@@ -6,6 +6,7 @@ import { Usuarios } from '../models/clientes';
 import { MensajesService } from '../services/mensajes.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-buscarfirestore',
   templateUrl: './buscarfirestore.component.html',
@@ -17,7 +18,7 @@ export class BuscarfirestoreComponent implements OnInit {
   usuarios: Usuarios[] = new Array<Usuarios>()
   arreglo: any = new Array<any>();
   
-  constructor(public rd: AngularFireDatabase ,private fb: FormBuilder,private db: AngularFirestore,private storage: AngularFireStorage,private msj : MensajesService) { }
+  constructor(public http: HttpClient,public rd: AngularFireDatabase ,private fb: FormBuilder,private db: AngularFirestore,private storage: AngularFireStorage,private msj : MensajesService) { }
 
   ngOnInit() {
     this.formularioClientes=this.fb.group({
@@ -37,6 +38,13 @@ export class BuscarfirestoreComponent implements OnInit {
       if(!resultado.empty){
       resultado.docs.forEach((item)=>{
       let usuario: any= item.data()
+      let correo : any=usuario.email
+      this.db.collection('Clientes',ref => ref.where('Email', '==', correo)).get().subscribe((traer)=>{
+        traer.docs.forEach((dato)=>{
+        let datos: any= dato.data()
+        usuario.clave=datos.Pin
+        })
+      })
       const ref = this.storage.ref('Usuarios/'+usuario.uid+'.jpg');
       const referencia =ref.getDownloadURL().subscribe((uri)=>{
         usuario.validar=usuario.foto
@@ -57,31 +65,66 @@ export class BuscarfirestoreComponent implements OnInit {
     })
   }
     Activar(objeto: Usuarios)
-    {
-      let correo=objeto.email
-      let posicion=this.usuarios.indexOf(objeto)
-      //console.log(posicion)
-      this.db.collection("Usuarios").doc(correo).update({
-          foto:'si'
-      }).then((resultado)=>{
-        this.msj.mensajecorrecto('Activar','se Activo Correctamente')
-        this.usuarios.length=0
-        this.usuarios.splice(posicion,1)
-      })
+     {
+       console.log(objeto)
+       let correo=objeto.email
+       let posicion=this.usuarios.indexOf(objeto)
+       //console.log(posicion)
+       this.db.collection("Usuarios").doc(correo).update({
+           foto:'si'
+       }).then((resultado)=>{
+        let acceder
+        let ejemplo=
+        {
+          email:"",
+          name:"",
+          uid:"",
+          pin:""
+        }
+        ejemplo.email=objeto.email
+        ejemplo.name=objeto.name
+        ejemplo.uid=objeto.uid
+        ejemplo.pin=objeto.clave
+        acceder=JSON.stringify(ejemplo)
+        console.log(acceder)
+        this.http.post<any>('http://localhost/correos/activar.php',acceder).toPromise().then((data)=>{
+        console.log (data)
+         this.msj.mensajecorrecto('Activar','se Activo Correctamente')
+         this.usuarios.length=0
+         this.usuarios.splice(posicion,1)
+        })
+       })
     }
     Desactivar(objeto: Usuarios)
     {
-      
-    let correo=objeto.email
-    let posicion=this.usuarios.indexOf(objeto)
-    //console.log(posicion)
-    this.db.collection("Usuarios").doc(correo).update({
-        foto:'no'
-    }).then((resultado)=>{
-      this.msj.mensajecorrecto('Desactivar','Se desactivo Correctamente')
-      this.usuarios.length=0
-      this.usuarios.splice(posicion,1)
-    })
+      console.log(objeto)
+     let correo=objeto.email
+     let posicion=this.usuarios.indexOf(objeto)
+     //console.log(posicion)
+     this.db.collection("Usuarios").doc(correo).update({
+         foto:'no'
+     }).then((resultado)=>{
+      let acceder
+      let ejemplo=
+      {
+        email:"",
+        name:"",
+        uid:"",
+        pin:""
+      }
+      ejemplo.email=objeto.email
+      ejemplo.name=objeto.name
+      ejemplo.uid=objeto.uid
+      ejemplo.pin=objeto.clave
+      acceder=JSON.stringify(ejemplo)
+      console.log(acceder)
+      this.http.post<any>('http://localhost/correos/desactivar.php',acceder).toPromise().then((data)=>{
+      console.log (data)
+      })
+       this.msj.mensajecorrecto('Desactivar','Se desactivo Correctamente')
+       this.usuarios.length=0
+       this.usuarios.splice(posicion,1)
+     })
   
     }
 }

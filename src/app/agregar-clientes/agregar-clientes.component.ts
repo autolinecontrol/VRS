@@ -46,7 +46,7 @@ export class AgregarClientesComponent implements OnInit {
  
   
   agregar(){
-    let Pin=Math.round(Math.random()*(1000-9999)+(9999));
+    let contrasena=Math.round(Math.random()*(1000-9999)+(9999));
     let correo: string=this.formularioClientes.value.Email
     let nombre: string=this.formularioClientes.value.Nombre
     let apellido: string=''
@@ -56,6 +56,7 @@ export class AgregarClientesComponent implements OnInit {
     let carrera: string=""
     let foto: string="no"
     let pin : string="1234"
+    let Pin=contrasena.toString()
     //Agregar a Clientes
     this.db.collection("Clientes").doc(iden).set({
       Email: correo,
@@ -92,7 +93,7 @@ export class AgregarClientesComponent implements OnInit {
       email:"",
       name:"",
       uid:"",
-      pin:123
+      pin:""
     }
     ejemplo.name=nombre
     ejemplo.uid=iden

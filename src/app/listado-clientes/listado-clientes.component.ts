@@ -7,6 +7,7 @@ import { MensajesService } from '../services/mensajes.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { error } from 'protractor';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-listado-clientes',
@@ -18,7 +19,7 @@ export class ListadoClientesComponent implements OnInit {
   clientes: any = new Array<any>();
   usuarios: Usuarios[] = new Array<Usuarios>()
   arreglo: any = new Array<any>();
-   constructor(public rd: AngularFireDatabase ,private fb: FormBuilder,private db: AngularFirestore,private storage: AngularFireStorage,private msj : MensajesService) { }
+   constructor(public http: HttpClient,public rd: AngularFireDatabase ,private fb: FormBuilder,private db: AngularFirestore,private storage: AngularFireStorage,private msj : MensajesService) { }
 
   ngOnInit() {
     this.formularioClientes=this.fb.group({
@@ -41,8 +42,8 @@ export class ListadoClientesComponent implements OnInit {
       algo=item
       const ref = this.storage.ref('Usuarios/'+algo.uid+'.jpg');
       const referencia =ref.getDownloadURL().subscribe((uri)=>{
-        algo.validar=algo.foto
-        algo.foto=uri
+      algo.validar=algo.foto
+      algo.foto=uri
         
       },(error: ReferenceError)=>{
         console.error(error)
@@ -60,23 +61,55 @@ export class ListadoClientesComponent implements OnInit {
   }
     Activar(objeto: Usuarios)
     {
+      let acceder
+      let ejemplo=
+      {
+        email:"",
+        name:"",
+        uid:"",
+        pin:""
+      }
+      ejemplo.email=objeto.email
+      ejemplo.name=objeto.name
+      ejemplo.uid=objeto.uid
+      ejemplo.pin=objeto.clave
       let posicion=this.usuarios.indexOf(objeto)
       const itemRef = this.rd.object('users/'+objeto.uid);
       itemRef.update({ foto: 'si' }).then((resultado)=>{
-        this.msj.mensajecorrecto('Activar','se Activo Correctamente')
-        this.usuarios.splice(posicion,1)
+      acceder=JSON.stringify(ejemplo)
+      console.log(acceder)
+      this.http.post<any>('http://localhost/correos/activar.php',acceder).toPromise().then((data)=>{
+      console.log (data)
       })
+      this.msj.mensajecorrecto('Activar','se Activo Correctamente')
+      this.usuarios.splice(posicion,1)
+       })
     }
     Desactivar(objeto: Usuarios)
     {
+      let acceder
+      let ejemplo=
+      {
+        email:"",
+        name:"",
+        uid:"",
+        pin:""
+      }
+      ejemplo.email=objeto.email
+      ejemplo.name=objeto.name
+      ejemplo.uid=objeto.uid
+      ejemplo.pin=objeto.clave
       let posicion=this.usuarios.indexOf(objeto)
       const itemRef = this.rd.object('users/'+objeto.uid);
       itemRef.update({ foto: 'no' }).then((resultado)=>{
-        this.msj.mensajecorrecto('Desactivar','se desactivo Correctamente')
-        
-        this.usuarios.splice(posicion,1)
+      acceder=JSON.stringify(ejemplo)
+      console.log(acceder)
+      this.http.post<any>('http://localhost/correos/desactivar.php',acceder).toPromise().then((data)=>{
+      console.log (data)
       })
-  
+      this.msj.mensajecorrecto('Activar','se Activo Correctamente')
+      this.usuarios.splice(posicion,1)
+      })  
     }
 }
 

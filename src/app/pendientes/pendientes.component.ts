@@ -20,11 +20,19 @@ export class PendientesComponent implements OnInit {
   
   ngOnInit() {}
   actualizar(){
+    this.usuarios.length=0
     let algo:any
     this.db.collection('Usuarios',ref => ref.where('foto', '==', 'xa')).get().subscribe((resultado)=>{
       //this.usuarios.length=0;
       resultado.docs.forEach((item)=>{
       let usuario: any= item.data()
+      let correo : any=usuario.email
+      this.db.collection('Clientes',ref => ref.where('Email', '==', correo)).get().subscribe((traer)=>{
+        traer.docs.forEach((dato)=>{
+        let datos: any= dato.data()
+        usuario.clave=datos.Pin
+        })
+      })
       usuario.id= item.id;
       const ref = this.storage.ref('Usuarios/'+usuario.uid+'.jpg');
       const algo=ref.getDownloadURL().subscribe((uri)=>{
@@ -32,6 +40,7 @@ export class PendientesComponent implements OnInit {
       usuario.db='fs'
       //console.log(uri)
     })
+
       //console.log(usuario)
       this.usuarios.push(usuario)
     })
@@ -65,16 +74,18 @@ export class PendientesComponent implements OnInit {
       {
         email:"",
         name:"",
-        uid:""
+        uid:"",
+        pin:""
       }
+      ejemplo.email=usuario.email
       ejemplo.name=usuario.name
       ejemplo.uid=usuario.uid
-      ejemplo.email=usuario.email
+      ejemplo.pin=usuario.clave
       acceder=JSON.stringify(ejemplo)
       let posicion=this.usuarios.indexOf(usuario)
       const itemRef = this.rd.object('users/'+usuario.uid);
       itemRef.update({ foto: 'si' }).then((resultado)=>{
-        this.http.post<any>('http://localhost/ejemplo/enviarcorreos1.php',acceder).toPromise().then((data)=>{
+        this.http.post<any>('http://localhost/correos/habilitar.php',acceder).toPromise().then((data)=>{
         console.log (data)
         })
         this.msj.mensajecorrecto('Activar','se Activo Correctamente y se ha enviado un correo')
@@ -83,12 +94,28 @@ export class PendientesComponent implements OnInit {
       });
      }
     if(usuario.db=='fs'){
+      let acceder
+      let ejemplo=
+      {
+        email:"",
+        name:"",
+        uid:"",
+        pin:""
+      }
+      ejemplo.email=usuario.email
+      ejemplo.name=usuario.name
+      ejemplo.uid=usuario.uid
+      ejemplo.pin=usuario.clave
+      acceder=JSON.stringify(ejemplo)
     let correo=usuario.email
     let posicion=this.usuarios.indexOf(usuario)
     //console.log(posicion)
     this.db.collection("Usuarios").doc(correo).update({
         foto:'si'
     }).then((resultado)=>{
+      this.http.post<any>('http://localhost/correos/habilitar.php',acceder).toPromise().then((data)=>{
+        console.log (data)
+      })
       this.msj.mensajecorrecto('Activar','se Activo Correctamente')
       this.usuariosmostrar.length=0
       this.usuarios.splice(posicion,1)
@@ -97,20 +124,51 @@ export class PendientesComponent implements OnInit {
     }
     desactivar(usuario: Usuarios){
       if(usuario.db='db'){
+        let acceder
+      let ejemplo=
+      {
+        email:"",
+        name:"",
+        uid:"",
+        pin:""
+      }
+      ejemplo.email=usuario.email
+      ejemplo.name=usuario.name
+      ejemplo.uid=usuario.uid
+      ejemplo.pin=usuario.clave
+      acceder=JSON.stringify(ejemplo)
         let posicion=this.usuarios.indexOf(usuario)
         const itemRef = this.rd.object('users/'+usuario.uid);
         itemRef.update({ foto: 'no' }).then((resultado)=>{
+          this.http.post<any>('http://localhost/correos/deshabilitar.php',acceder).toPromise().then((data)=>{
+            console.log (data)
+            })
           this.msj.mensajecorrecto('Desactivar','Se Desactivo Correctamente')
           this.usuariosmostrar.length=0
           this.usuarios.splice(posicion,1)
         });
        }
       if(usuario.db=='fs'){
+        let acceder
+        let ejemplo=
+        {
+          email:"",
+          name:"",
+          uid:"",
+          pin:""
+        }
+        ejemplo.email=usuario.email
+        ejemplo.name=usuario.name
+        ejemplo.uid=usuario.uid
+        ejemplo.pin=usuario.clave
       let correo=usuario.email
       let posicion=this.usuarios.indexOf(usuario)
       this.db.collection("Usuarios").doc(correo).update({
           foto:'no'
       }).then((resultado)=>{
+        this.http.post<any>('http://localhost/correos/habilitar.php',acceder).toPromise().then((data)=>{
+          console.log (data)
+        })
         this.msj.mensajecorrecto('Desctivar','Se desactivo Correctamente')
         this.usuariosmostrar.length=0
       this.usuarios.splice(posicion,1)
