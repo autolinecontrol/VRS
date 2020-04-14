@@ -1,7 +1,7 @@
 <html>
 <head>
     
-<title>Enviar Correos de Bienvenida Crear Usuarios</title>
+<title>Enviar Correos de Activar desde busqueda con Cedula</title>
 
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
@@ -25,15 +25,7 @@ function enviarcorreos($correovisitante,$identificacion,$nombrevisitante,$pin)
     $message_body = 'Estimado/a. ' .$nombrevisitante.',
     <BR>
     Bienvenido a la Universidad La Gran Colombia.<br>
-    A continuación encontrarás los pasos que te permitirán descargar la aplicacion Universidad Gran Colombia, 
-    con la que podrás ingresar a las instalaciones de la Universidad.
-    <br><br>Disponible en la manzana central, Próximamente estará disponible en los demás edificios.<br>
-    Paso 1 Descarga la aplicacion a traves de los siguientes links<br>
-    <a href="https://play.google.com/store/apps/details?id=com.autolinecontrol.VIPUniversity&hl=es_CO">Play Store</a><br>
-    <a href="https://apps.apple.com/us/app/universidad-la-gran-colombia/id1500331185?l=es&ls=1">App Store</a><br>
-    Paso 2 Ingrese con su Identificacion y su contraseña es: '.$pin.' <br>
-    Paso 3 En el inicio hay un simbolo de camara seleccionelo y suba su foto<br>
-    Paso 4 Una vez la universidad apruebe su imagen le llegara un correo informandole la aprobacion
+    Te hemos activado en la aplicacion Universidad Gran Colombia recuerda que tu pin es '.$pin.'
     ';
     echo $para_usuario,$subject."<br>";
     sendEmail($para_usuario, $subject, $message_body,$id);
