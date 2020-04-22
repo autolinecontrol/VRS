@@ -101,7 +101,7 @@ export class AgregarClientesComponent implements OnInit {
     ejemplo.pin=Pin
     acceder=JSON.stringify(ejemplo)
     console.log(acceder)
-    this.http.post<any>('http://localhost/correos/bienvenida.php',acceder).toPromise().then((data)=>{
+    this.http.post<any>('http://172.20.100.71/correos/bienvenida.php',acceder).toPromise().then((data)=>{
       console.log (data)
     })
     this.msj.mensajecorrecto('Agregar','se Agrego Correctamente')

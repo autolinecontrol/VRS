@@ -3,18 +3,11 @@
     <div class="col-sm-12 text-center">
       <a class="btn btn-primary" (click)="actualizar()">Actualizar</a>
       <br><br>
+      <h4>Lista de Pendientes</h4>
     </div>
   </div>
     <div class="row">
-        <div class="col-sm-8">
-            <h4>Lista de Pendientes</h4> 
-            <ul>
-              <li *ngFor="let usuario of usuarios">
-                <a (click)="ver(usuario)">{{usuario.name}}</a>
-              </li>
-            </ul>
-        </div>
-        <div class="col-sm-4" *ngFor="let mostrar of usuariosmostrar">
+        <div class="col-sm-3" *ngFor="let mostrar of usuariosmostrar">
             <div class="card" style="width: 14rem;" >
               <div class="card float-left">
                 <img  class="card-img-top imgClient" [src]="mostrar.foto" alt="...">

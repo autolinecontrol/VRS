@@ -16,11 +16,12 @@ export class PendientesComponent implements OnInit {
   usuariosmostrar: Usuarios[] = new Array<Usuarios>()
   usuariord:Usuarios
   arreglo: any = new Array<any>();
+  control: boolean=false
   constructor(public http: HttpClient,public db: AngularFirestore,public storage: AngularFireStorage,public msj : MensajesService,public rd: AngularFireDatabase) { }
   
   ngOnInit() {}
   actualizar(){
-    this.usuarios.length=0
+    this.usuariosmostrar.length=0
     let algo:any
     this.db.collection('Usuarios',ref => ref.where('foto', '==', 'xa')).get().subscribe((resultado)=>{
       //this.usuarios.length=0;
@@ -38,11 +39,12 @@ export class PendientesComponent implements OnInit {
       const algo=ref.getDownloadURL().subscribe((uri)=>{
       usuario.foto=uri
       usuario.db='fs'
+      this.control=true
       //console.log(uri)
     })
 
       //console.log(usuario)
-      this.usuarios.push(usuario)
+      this.usuariosmostrar.push(usuario)
     })
     })
     var resultados=this.rd.list('/users', ref => ref.orderByChild('foto').equalTo('xa')).valueChanges()
@@ -55,11 +57,13 @@ export class PendientesComponent implements OnInit {
         algo.foto=uri
       })
       console.log(algo)
-      algo.db='rd'
-      this.usuarios.push(algo)
+      if(queriedItems.length!=0){
+      algo.db='rd'}
+      this.usuariosmostrar.push(algo)
       })
-    
+      this.control=true
     });
+    console.log(this.control)
     }
     ver(usuario: Usuarios){
     this.usuariosmostrar.length=0
@@ -68,7 +72,7 @@ export class PendientesComponent implements OnInit {
     }
     activar(usuario: Usuarios){
       //console.log(usuario)
-    if(usuario.db='db'){
+    if(usuario.db=='rd'){
       let acceder
       let ejemplo=
       {
@@ -82,15 +86,15 @@ export class PendientesComponent implements OnInit {
       ejemplo.uid=usuario.uid
       ejemplo.pin=usuario.clave
       acceder=JSON.stringify(ejemplo)
-      let posicion=this.usuarios.indexOf(usuario)
+      let posicion=this.usuariosmostrar.indexOf(usuario)
       const itemRef = this.rd.object('users/'+usuario.uid);
       itemRef.update({ foto: 'si' }).then((resultado)=>{
-        this.http.post<any>('http://localhost/correos/habilitar.php',acceder).toPromise().then((data)=>{
+        this.http.post<any>('http://172.20.100.71/correos/habilitar.php',acceder).toPromise().then((data)=>{
         console.log (data)
         })
         this.msj.mensajecorrecto('Activar','se Activo Correctamente y se ha enviado un correo')
-        this.usuariosmostrar.length=0
-        this.usuarios.splice(posicion,1)
+       
+        this.usuariosmostrar.splice(posicion,1)
       });
      }
     if(usuario.db=='fs'){
@@ -108,22 +112,21 @@ export class PendientesComponent implements OnInit {
       ejemplo.pin=usuario.clave
       acceder=JSON.stringify(ejemplo)
     let correo=usuario.email
-    let posicion=this.usuarios.indexOf(usuario)
+    let posicion=this.usuariosmostrar.indexOf(usuario)
     //console.log(posicion)
     this.db.collection("Usuarios").doc(correo).update({
         foto:'si'
     }).then((resultado)=>{
-      this.http.post<any>('http://localhost/correos/habilitar.php',acceder).toPromise().then((data)=>{
+      this.http.post<any>('http://172.20.100.71/correos/habilitar.php',acceder).toPromise().then((data)=>{
         console.log (data)
       })
       this.msj.mensajecorrecto('Activar','se Activo Correctamente')
-      this.usuariosmostrar.length=0
-      this.usuarios.splice(posicion,1)
+      this.usuariosmostrar.splice(posicion,1)
     })
     }
     }
     desactivar(usuario: Usuarios){
-      if(usuario.db='db'){
+      if(usuario.db=='rd'){
         let acceder
       let ejemplo=
       {
@@ -137,15 +140,15 @@ export class PendientesComponent implements OnInit {
       ejemplo.uid=usuario.uid
       ejemplo.pin=usuario.clave
       acceder=JSON.stringify(ejemplo)
-        let posicion=this.usuarios.indexOf(usuario)
+        let posicion=this.usuariosmostrar.indexOf(usuario)
         const itemRef = this.rd.object('users/'+usuario.uid);
         itemRef.update({ foto: 'no' }).then((resultado)=>{
-          this.http.post<any>('http://localhost/correos/deshabilitar.php',acceder).toPromise().then((data)=>{
+          this.http.post<any>('http://172.20.100.71/correos/deshabilitar.php',acceder).toPromise().then((data)=>{
             console.log (data)
             })
           this.msj.mensajecorrecto('Desactivar','Se Desactivo Correctamente')
-          this.usuariosmostrar.length=0
-          this.usuarios.splice(posicion,1)
+          
+          this.usuariosmostrar.splice(posicion,1)
         });
        }
       if(usuario.db=='fs'){
@@ -162,16 +165,16 @@ export class PendientesComponent implements OnInit {
         ejemplo.uid=usuario.uid
         ejemplo.pin=usuario.clave
       let correo=usuario.email
-      let posicion=this.usuarios.indexOf(usuario)
+      let posicion=this.usuariosmostrar.indexOf(usuario)
       this.db.collection("Usuarios").doc(correo).update({
           foto:'no'
       }).then((resultado)=>{
-        this.http.post<any>('http://localhost/correos/habilitar.php',acceder).toPromise().then((data)=>{
+        this.http.post<any>('http://172.20.100.71/correos/habilitar.php',acceder).toPromise().then((data)=>{
           console.log (data)
         })
         this.msj.mensajecorrecto('Desctivar','Se desactivo Correctamente')
-        this.usuariosmostrar.length=0
-      this.usuarios.splice(posicion,1)
+        
+      this.usuariosmostrar.splice(posicion,1)
       })
     }
   
